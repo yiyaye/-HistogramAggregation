@@ -1,0 +1,27 @@
+Histogram Aggregation关键字: Histogram与Terms聚合类似，都是数据分组，区别是Terms是按照Field的值分组，而Histogram可以按照指定的间隔对Field进行分组
+#根据价格区间为10000分桶
+GET /cars/cars/_search
+{
+  "aggs": {
+    "prices": {
+      "histogram": {
+        "field": "price",
+        "interval": 10000
+      }
+    }
+  }
+}
+
+#根据价格区间为10000分桶，同时如果桶中没有文档就不显示桶
+GET /cars/cars/_search
+{
+  "aggs": {
+    "prices": {
+      "histogram": {
+        "field": "price",
+        "interval": 10000,
+        "min_doc_count": 1
+      }
+    }
+  }
+}
